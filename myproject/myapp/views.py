@@ -23,3 +23,8 @@ def index(request):
 
 def pathview(request, name, id):
     return HttpResponse('<h1>Hi, {}! Your id is {}</h1>'.format(name, id))
+
+def qryview(request):
+    name = request.GET['name']
+    id = request.GET['id']
+    return HttpResponse('<h1>Hi, {}! Your id is {}</h1>'.format(name, id))
