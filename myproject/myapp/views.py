@@ -20,3 +20,6 @@ def index(request):
 <p>Request Method :{}</p></center> 
 '''.format(path, method) 
     return HttpResponse(content) 
+
+def pathview(request, name, id):
+    return HttpResponse('<h1>Hi, {}! Your id is {}</h1>'.format(name, id))
