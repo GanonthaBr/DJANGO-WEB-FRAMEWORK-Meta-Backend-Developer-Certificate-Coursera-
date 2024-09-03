@@ -21,10 +21,22 @@ def index(request):
 '''.format(path, method) 
     return HttpResponse(content) 
 
+#Path parameter
 def pathview(request, name, id):
     return HttpResponse('<h1>Hi, {}! Your id is {}</h1>'.format(name, id))
 
+#Query parameter
 def qryview(request):
     name = request.GET['name']
     id = request.GET['id']
     return HttpResponse('<h1>Hi, {}! Your id is {}</h1>'.format(name, id))
+
+#Body parameter
+def showform(request): 
+    return render(request, "form.html") 
+
+def getform(request): 
+    if request.method == "POST": 
+        id=request.POST['id'] 
+        name=request.POST['name'] 
+    return HttpResponse("Name:{} UserID:{}".format(name, id)) 

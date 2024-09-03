@@ -25,4 +25,6 @@ urlpatterns = [
     path('method/', views.index, name='method'),
     path('getuser/<name>/<id>', views.pathview, name='pathview'),
     path('getuser/', views.qryview, name='qryview'),
+    path("showform/", views.showform, name="showform"), 
+    path("getform/", views.getform, name='getform'),
 ]
