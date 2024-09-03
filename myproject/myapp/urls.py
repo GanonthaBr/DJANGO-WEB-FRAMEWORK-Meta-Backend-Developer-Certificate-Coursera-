@@ -16,9 +16,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from . import views   # . Indicating this current directory
+from . import views   # (.) Indicating this current directory
 
 urlpatterns = [
     
     path('', views.home, name='home'),
+    path('products/', views.product_list, name='products'),
+    path('method/', views.index, name='method'),
 ]
