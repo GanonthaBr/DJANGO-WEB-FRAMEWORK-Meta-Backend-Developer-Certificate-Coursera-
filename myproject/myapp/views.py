@@ -27,7 +27,7 @@ def pathview(request, name, id):
 
 #Query parameter
 def qryview(request):
-    name = request.GET['name']
+    name = request.GET['name'] #request.GET.get('name','default_value')
     id = request.GET['id']
     params = request.GET.dict() #Get a map of all query params as key-value pairs
     return HttpResponse('<h1>Hi, {}! Your id is {} and {}</h1>'.format(name, id,params))
