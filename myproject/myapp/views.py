@@ -29,11 +29,12 @@ def pathview(request, name, id):
 def qryview(request):
     name = request.GET['name']
     id = request.GET['id']
-    return HttpResponse('<h1>Hi, {}! Your id is {}</h1>'.format(name, id))
+    params = request.GET.dict() #Get a map of all query params as key-value pairs
+    return HttpResponse('<h1>Hi, {}! Your id is {} and {}</h1>'.format(name, id,params))
 
 #Body parameter
 def showform(request): 
-    return render(request, "form.html") 
+    return render(request,'form.html')
 
 def getform(request): 
     if request.method == "POST": 
