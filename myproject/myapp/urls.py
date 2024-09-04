@@ -27,4 +27,5 @@ urlpatterns = [
     path('getuser/', views.qryview, name='qryview'),
     path("showform/", views.showform, name="showform"), 
     path("getform/", views.getform, name='getform'),
+    path('products/<str:name>', views.get_product, name='get_product'),
 ]

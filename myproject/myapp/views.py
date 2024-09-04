@@ -41,3 +41,9 @@ def getform(request):
         id=request.POST['id'] 
         name=request.POST['name'] 
     return HttpResponse("Name:{} UserID:{}".format(name, id)) 
+
+#params
+def get_product(request, name):
+    products = {'huile':{'price':2000,'qty':2,'ingredients':'chebe, huile et more'},'pomade':{'price':4000,'qty':12,'ingredients':'pom, graisse et more'}, }
+    product = products[name]['ingredients']
+    return HttpResponse(f'<h1>Product: {name} </h1> Ingredients are: {product}')
