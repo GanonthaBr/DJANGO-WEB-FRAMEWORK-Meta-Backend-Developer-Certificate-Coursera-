@@ -1,8 +1,10 @@
 from django.shortcuts import render
 
 # Create your views here.
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 from django.views import View #class based view
+from django.urls import reverse
+from django.core.exceptions import *
 
 def home(request):
     return HttpResponse('Welcome to our Shop, Cosmetic Natural!')
@@ -49,11 +51,23 @@ def getform(request):
 
 #params
 def get_product(request, name):
-    products = {'huile':{'price':2000,'qty':2,'ingredients':'chebe, huile et more'},'pomade':{'price':4000,'qty':12,'ingredients':'pom, graisse et more'}, }
-    product = products[name]['ingredients']
+    try:
+        products = {'huile':{'price':2000,'qty':2,'ingredients':'chebe, huile et more'},'pomade':{'price':4000,'qty':12,'ingredients':'pom, graisse et more'}, }
+        product = products[name]['ingredients']
+    except FileNotFoundError:
+        raise Http404('Product not found')
+    except Exception:
+        raise Http404('Product not found, key misspelled')
     return HttpResponse(f'<h1>Product: {name} </h1> Ingredients are: {product}')
 
 #class based view
 class MyView(View):
+    name = 'MyCosmetic Natural'
     def get(self, request):
-        return HttpResponse('About My Cosmetic Natural')
+        return HttpResponse(f'About {self.name}')
+    
+#regular expression
+def article(request, year, month):
+    url = reverse('article',args=[year,month])
+    return HttpResponse(f'<h1>Article from {year} and {month}. The URL entered is: {url}')
+
