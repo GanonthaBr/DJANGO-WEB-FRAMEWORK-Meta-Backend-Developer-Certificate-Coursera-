@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.urls import path
 from . import views   # (.) Indicating this current directory
 
+
 urlpatterns = [
     
     path('', views.home, name='home'),
@@ -28,4 +29,5 @@ urlpatterns = [
     path("showform/", views.showform, name="showform"), 
     path("getform/", views.getform, name='getform'),
     path('products/<str:name>', views.get_product, name='get_product'),
+    path('about/',views.MyView.as_view())
 ]
