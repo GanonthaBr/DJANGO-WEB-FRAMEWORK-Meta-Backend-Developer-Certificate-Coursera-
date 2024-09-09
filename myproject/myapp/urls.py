@@ -20,7 +20,6 @@ from . import views   # (.) Indicating this current directory
 
 
 urlpatterns = [
-    
     path('', views.home, name='home'),
     path('products/', views.product_list, name='products'),
     path('method/', views.index, name='method'),
@@ -32,4 +31,5 @@ urlpatterns = [
     path('about/',views.MyView.as_view()),
     re_path(r'^article/(?P<year>\d{4})/(?P<month>\d{2})/$', views.article,name='article'),
 
+    path('list/<nom>/<id>',views.list_p, name='list')
 ]

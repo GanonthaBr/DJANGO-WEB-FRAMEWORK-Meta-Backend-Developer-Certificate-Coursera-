@@ -71,3 +71,6 @@ def article(request, year, month):
     url = reverse('article',args=[year,month])
     return HttpResponse(f'<h1>Article from {year} and {month}. The URL entered is: {url}')
 
+def list_p(request,nom,id):
+    url = reverse('list',args=[nom, id])
+    return HttpResponse(f'Ceci est le produit {nom} qui a pour ID {id} and with URL {url}')
