@@ -11,3 +11,7 @@ class Huiles(models.Model):
     name = models.CharField(max_length=100)
     description = models.CharField(max_length=100)
     price = models.IntegerField()
+
+class Drinks(models.Model):
+    drink_name = models.CharField(max_length=200)
+    price = models.IntegerField()
