@@ -15,3 +15,14 @@ class Huiles(models.Model):
 class Drinks(models.Model):
     drink_name = models.CharField(max_length=200)
     price = models.IntegerField()
+
+#categories
+class MenuCategories(models.Model):
+    menu_category_name = models.CharField(max_length=200)
+
+#menus
+class Menu(models.Model):
+    name = models.CharField(max_length=200)
+    description = models.CharField(max_length=200)
+    price = models.IntegerField()
+    menu_category = models.ForeignKey(MenuCategories, on_delete=models.PROTECT, default=None,related_name='category_id' )
