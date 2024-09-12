@@ -26,3 +26,6 @@ class Menu(models.Model):
     description = models.CharField(max_length=200)
     price = models.IntegerField()
     menu_category = models.ForeignKey(MenuCategories, on_delete=models.PROTECT, default=None,related_name='category_id' )
+
+    def __str__(self):
+        return f"Name: {self.name} Price: {self.price}"

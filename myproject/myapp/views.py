@@ -6,6 +6,8 @@ from django.views import View #class based view
 from django.urls import reverse
 from django.core.exceptions import *
 
+from .forms import ApplicationForm
+
 def home(request):
     return HttpResponse('Welcome to our Shop, Cosmetic Natural!')
 
@@ -74,3 +76,20 @@ def article(request, year, month):
 def list_p(request,nom,id):
     url = reverse('list',args=[nom, id])
     return HttpResponse(f'Ceci est le produit {nom} qui a pour ID {id} and with URL {url}')
+
+#form class
+def apply_form(request):
+    form  = ApplicationForm()
+    return render(request, 'application_form.html', {'form':form})
+
+def apply_data_process(request):
+    # return HttpResponse('Submitted Successfully')
+    if request.method == 'POST':
+        form = ApplicationForm(request.POST)
+        #check if form is valid
+        if form.is_valid():
+            name = form.cleaned_data['name']
+            age = form.cleaned_data['age']
+            address = form.cleaned_data['address']
+            position = form.cleaned_data['position']
+            return HttpResponse(f'Name: {name}, Age: {age}, Address: {address}, Position: {position}')

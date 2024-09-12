@@ -31,5 +31,10 @@ urlpatterns = [
     path('about/',views.MyView.as_view()),
     re_path(r'^article/(?P<year>\d{4})/(?P<month>\d{2})/$', views.article,name='article'),
 
-    path('list/<nom>/<id>',views.list_p, name='list')
+    path('list/<nom>/<id>',views.list_p, name='list'),
+
+    #form class
+    path('apply/',views.apply_form, name='Apply'),
+    path('applying/',views.apply_data_process,name='apply_data_process'),
+   
 ]
