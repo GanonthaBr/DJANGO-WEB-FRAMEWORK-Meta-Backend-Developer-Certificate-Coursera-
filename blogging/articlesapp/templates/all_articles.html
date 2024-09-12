@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>All articles</title>
+  </head>
+  <body>
+    <h1>All Articles</h1>
+    {% for article in articles %}
+    <ul>
+      <li>
+        <a href="/articles/{{article.id}}">{{article.title}}</a>
+      </li>
+    </ul>
+    {% endfor %}
+    <a href="/articles/create">Write Articles</a>
+  </body>
+</html>
