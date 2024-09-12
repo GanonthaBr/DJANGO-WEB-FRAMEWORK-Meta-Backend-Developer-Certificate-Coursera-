@@ -25,3 +25,8 @@ def all_articles(request):
     articles = Article.objects.all()
     context = {"articles":articles}
     return render(request, 'all_articles.html', context)
+
+def delete(request,id):
+    article = Article.objects.get(id=id)
+    article.delete()
+    return render(request,'delete.html')
