@@ -1,0 +1,7 @@
+<form action="/logger/" method="POST">
+  {% csrf_token %}
+  <table>
+    {{ logger_form.as_p }}
+  </table>
+  <input type="submit" value="Submit" />
+</form>

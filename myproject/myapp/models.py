@@ -29,3 +29,8 @@ class Menu(models.Model):
 
     def __str__(self):
         return f"Name: {self.name} Price: {self.price}"
+    
+#model form
+class Logger(models.Model):
+    name = models.CharField(max_length=20)
+    email = models.EmailField()

@@ -36,5 +36,6 @@ urlpatterns = [
     #form class
     path('apply/',views.apply_form, name='Apply'),
     path('applying/',views.apply_data_process,name='apply_data_process'),
+    path('logger/',views.logger)
    
 ]

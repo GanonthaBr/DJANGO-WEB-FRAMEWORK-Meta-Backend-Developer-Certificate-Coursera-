@@ -7,6 +7,7 @@ from django.urls import reverse
 from django.core.exceptions import *
 
 from .forms import ApplicationForm
+from .forms import FormLogger
 
 def home(request):
     return HttpResponse('Welcome to our Shop, Cosmetic Natural!')
@@ -93,3 +94,12 @@ def apply_data_process(request):
             address = form.cleaned_data['address']
             position = form.cleaned_data['position']
             return HttpResponse(f'Name: {name}, Age: {age}, Address: {address}, Position: {position}')
+
+def logger(request):
+    logger_form = FormLogger()
+    if request.method == 'POST':
+        logger_form = FormLogger(request.POST)
+        if logger_form.is_valid():
+            logger_form.save()
+    context = {"logger_form":logger_form}
+    return render(request,'logger.html',context)
