@@ -16,6 +16,9 @@ class Drinks(models.Model):
     drink_name = models.CharField(max_length=200)
     price = models.IntegerField()
 
+    def __str__(self):
+        return f"{self.drink_name}"
+
 #categories
 class MenuCategories(models.Model):
     menu_category_name = models.CharField(max_length=200)
@@ -34,3 +37,6 @@ class Menu(models.Model):
 class Logger(models.Model):
     name = models.CharField(max_length=20)
     email = models.EmailField()
+
+    def __str__(self):
+        return f"{self.name}"
