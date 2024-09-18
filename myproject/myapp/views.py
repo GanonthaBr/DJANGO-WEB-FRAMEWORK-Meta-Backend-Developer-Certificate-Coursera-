@@ -103,3 +103,10 @@ def logger(request):
             logger_form.save()
     context = {"logger_form":logger_form}
     return render(request,'logger.html',context)
+
+
+#about page
+
+def about(request):
+    about_context = {'about':'About Our website'}
+    return render(request, 'about.html', about_context)
