@@ -110,3 +110,14 @@ def logger(request):
 def about(request):
     about_context = {'about':'About Our website'}
     return render(request, 'about.html', about_context)
+
+
+#menu page
+def main(request):
+    menu_context = {'menu':'Our Menu'}
+    return render(request, 'menu.html', menu_context)
+
+#booking page
+def booking(request):
+    booking_context = {'booking':'Booking Page'}
+    return render(request, 'booking.html', booking_context)
