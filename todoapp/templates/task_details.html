@@ -1,0 +1,10 @@
+{%block content%}
+
+<h2>{{task.title}}</h2>
+<p>{{task.description}}</p>
+<p>{{task.completed}}</p>
+<p>{{task.priority}}</p>
+
+<a href="{% url 'delete' pk=task.pk %}" style="color: red">Remove</a>
+
+{%endblock%}

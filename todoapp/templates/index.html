@@ -1,3 +1,10 @@
 {% extends 'base.html' %} {% block content%}
 <h1>Tasks List</h1>
-{% endblock %}
+{%for task in tasks%}
+<h3>
+  <a href="{% url 'task_details' pk=task.pk %}"
+    >{{forloop.counter}}.{{task.title}}</a
+  >
+</h3>
+<p>{{task.description}}</p>
+{%endfor%} {% endblock %}

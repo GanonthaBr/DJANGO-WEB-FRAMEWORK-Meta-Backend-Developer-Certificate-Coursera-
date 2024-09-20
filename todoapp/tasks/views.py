@@ -1,31 +1,41 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponsePermanentRedirect
 from django.urls import reverse
+
+from .models import Todotask
 from .forms import TaskForm
 
 # Create your views here.
 
 def index(request):
-    return render(request, 'index.html')
+    tasks = Todotask.objects.all()
+    task_list = {'tasks':tasks}
+    return render(request, 'index.html',task_list)
 
 def tasks(request):
     pass
 
-def addTask(request):
-    app_name = 'todo'
-    form = TaskForm()
-    return render(request,'add_task.html',{'form':form})
 
 def process_task(request):
+    task = TaskForm()
     if request.method == 'POST':
-        form = TaskForm(request.POST)
-        if form.is_valid():
-            title = form.cleaned_data['title']
-            description = form.cleaned_data['description']
-            priority = form.cleaned_data['priority']
-            completed = form.cleaned_data['completed']
-            #save the data to db
-            task = TaskForm(title=title, description=description, priority=priority, completed=completed)
+        task = TaskForm(request.POST)
+        if task.is_valid():
             task.save()
+    context = {'task':task}
     # return HttpResponse("Task has been added successfully")
-    return HttpResponsePermanentRedirect(reverse('todo:view'))
+    return render(request,'add_task.html',context)
+
+
+def task_details(request,pk=None):
+    if pk:
+        task = Todotask.objects.get(pk=pk)
+    else:
+        task = ''
+    task = {'task':task}
+    return render(request,'task_details.html',task)
+
+def delete(request,pk):
+    task = Todotask.objects.get(pk=pk)
+    task.delete()
+    return HttpResponse('Deleted')
