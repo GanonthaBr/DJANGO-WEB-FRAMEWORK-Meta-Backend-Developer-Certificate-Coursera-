@@ -5,6 +5,10 @@
 <p>{{task.completed}}</p>
 <p>{{task.priority}}</p>
 
-<a href="{% url 'delete' pk=task.pk %}" style="color: red">Remove</a>
+<form action="{% url 'delete' pk=task.pk %}" method="POST" style="color: red">
+  {% csrf_token %}
+  <input type="submit" value="Delete" />
+</form>
+<a href="{% url 'edit' pk=task.pk %}" style="color: blue">Edit</a>
 
 {%endblock%}

@@ -1,5 +1,6 @@
 {%extends 'base.html'%} {%block content%}
 <h2>add a new Task</h2>
+
 <form action="{% url 'process_task' %}" method="POST">
   {% csrf_token %} {{task.as_p}}
   <input type="submit" value="Add Task" />
