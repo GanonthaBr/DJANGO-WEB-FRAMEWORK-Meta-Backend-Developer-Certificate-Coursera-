@@ -60,7 +60,7 @@ MEDIA_ROOT = BASE_DIR / 'media'  # Make a 'media' directory for uploaded files
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['templates'],
+        'DIRS': ['template'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
