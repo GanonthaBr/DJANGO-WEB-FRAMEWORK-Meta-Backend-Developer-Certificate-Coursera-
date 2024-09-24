@@ -1,0 +1,10 @@
+{% extends 'base.html' %} {%block title%} Details {%endblock%} {%block content%}
+<section class="about">
+  <h1>{{project.title}}</h1>
+  <p>{{project.description}}</p>
+  <a href="{% url 'update' project.id %}" style="color: blue">Edit</a>
+  <a href="{% url 'delete' project.id %}" style="color: red">Delete</a>
+  {% load static%}
+  <img src="{% static 'project.image' %}" alt="my picture" />
+</section>
+{%endblock%}

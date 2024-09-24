@@ -1,4 +1,4 @@
-{% extends 'base.html' %} {%block title%} About {%endblock%} {%block content%}
+{% extends 'base.html' %} {%block title%} Projets {%endblock%} {%block content%}
 <section class="projects">
   <h1>My Projects</h1>
   {%if success%}
@@ -8,7 +8,12 @@
   {%endif%}
   <ul>
     {%for project in projects%}
-    <li><strong>{{project.title}}:</strong> {{project.description}}</li>
+    <li>
+      <strong>
+        <a href="{% url 'project' project.id %}">{{project.title}}</a> :</strong
+      >
+      {{project.description}}
+    </li>
     {%endfor%}
   </ul>
   <a href="{% url 'add_project' %}">Add a new project</a>

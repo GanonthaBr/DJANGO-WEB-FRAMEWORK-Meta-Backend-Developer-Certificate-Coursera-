@@ -1,6 +1,6 @@
 {%block title%} Add Project {%endblock%} {%block content%}
 <h1>Add Project</h1>
-<form action="{% url 'add_project' %}" method="post">
+<form method="post">
   {%csrf_token%} {{form.as_p}}
   <button type="submit">Add Project</button>
 </form>
