@@ -38,6 +38,7 @@ class ProjectUpdate(UpdateView):
     model = Projects
     fields = ['title','description','image']
     success_url = reverse_lazy('projects')
+    template_name = 'projects_form.html'
     
 
 #Delete
@@ -45,7 +46,7 @@ class ProjectDelete(DeleteView):
     model = Projects
     success_url = reverse_lazy('projects')
     template_name = 'projects_confirm_delete.html'
-    
+
 
 
 
