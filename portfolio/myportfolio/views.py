@@ -1,8 +1,9 @@
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from .models import Projects
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
+from django.views.generic.detail import DetailView
 
 # Create your views here.
 
@@ -11,12 +12,6 @@ def index(request):
 
 def about(request):
     return render(request,'about.html')
-
-# def projects(request):
-#     project = Projects.objects.all()
-#     context = {'projects':project}
-#     return render(request,'projects.html',context)
-
 
 #Create
 class ProjectCreate(CreateView):
@@ -32,6 +27,25 @@ class ProjectRetrieve(ListView):
     template_name = 'projects.html'
     context_object_name = 'projects'
 
+#Details
+class ProjectDetails(DetailView):
+    model = Projects
+    template_name = 'project.html'
+    context_object_name = 'project'
+
+#Update
+class ProjectUpdate(UpdateView):
+    model = Projects
+    fields = ['title','description','image']
+    success_url = reverse_lazy('projects')
+    
+
+#Delete
+class ProjectDelete(DeleteView):
+    model = Projects
+    success_url = reverse_lazy('projects')
+    template_name = 'projects_confirm_delete.html'
+    
 
 
 
