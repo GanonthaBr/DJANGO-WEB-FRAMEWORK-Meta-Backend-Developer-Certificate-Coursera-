@@ -7,5 +7,6 @@ urlpatterns = [
     # path('books/<int:pk>/',views.SingleBookView.as_view()),
     path('books/<int:pk>/',views.single_book),
     path('authors/',views.Author.as_view()),
+    path('authors/<int:pk>/',views.single_author),
     
 ]

@@ -26,3 +26,9 @@ def single_book(request, pk):
 class Author(generics.ListCreateAPIView):
     queryset = Author.objects.all()
     serializer_class = AuthorSerializer
+
+@api_view(['GET','POST','PUT','PATCH','DELETE'])
+def single_author(request, pk):
+    item = Author.objects.get(pk=pk)
+    serialized_item = AuthorSerializer(item,)
+    return Response(serialized_item.data)
