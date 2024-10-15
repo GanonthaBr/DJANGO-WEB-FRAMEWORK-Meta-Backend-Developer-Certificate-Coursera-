@@ -9,8 +9,13 @@ class AuthorSerializer(serializers.ModelSerializer):
 
 class BookSerializer(serializers.ModelSerializer):
     pricing = serializers.DecimalField(max_digits=5,decimal_places=3,source='price')
-    author = AuthorSerializer() #relationship serializer
+    # author = AuthorSerializer() #relationship serializer
+    author = serializers.HyperlinkedRelatedField(queryset = Author.objects.all(),
+                                                 view_name='authordetail')
     class Meta:
         model = Book
         fields = ['id','title', 'author', 'pricing']
+        # The `depth = 1` in the `BookSerializer` class is used in Django REST framework to control
+        # the depth of relationships that are traversed and displayed in the serialized data.
+        # depth = 1 #display relationship
     
