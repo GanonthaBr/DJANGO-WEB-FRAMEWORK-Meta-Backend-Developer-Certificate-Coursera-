@@ -11,7 +11,7 @@ class BookSerializer(serializers.ModelSerializer):
     pricing = serializers.DecimalField(max_digits=5,decimal_places=3,source='price')
     # author = AuthorSerializer() #relationship serializer
     author = serializers.HyperlinkedRelatedField(queryset = Author.objects.all(),
-                                                 view_name='authordetail')
+                                                 view_name='author-detail')
     class Meta:
         model = Book
         fields = ['id','title', 'author', 'pricing']
