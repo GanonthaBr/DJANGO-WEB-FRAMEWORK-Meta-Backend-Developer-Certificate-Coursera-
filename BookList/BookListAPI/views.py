@@ -12,6 +12,15 @@ from .serializers import BookSerializer, AuthorSerializer
 def booksView(request):
     if request.method == 'GET':
         items = Book.objects.all()
+        name = request.query_params.get('name')
+        price = request.query_params.get('to_price')
+
+        if name:
+            items = items.filter(author__name=name)
+        if price:
+            items = items.filter(price__lte=price)
+        if price and name:
+            items = items.filter(author__name=name, price__lte=price)
         serialized_items = BookSerializer(items, many=True, context={'request':request})
         return Response(serialized_items.data)
     if request.method == 'POST':
@@ -46,3 +55,4 @@ def author_detail(request, pk):
         serialized_item.is_valid(raise_exception=True)
         serialized_item.save()
         return Response(serialized_item.data, status=status.HTTP_201_CREATED)
+   
