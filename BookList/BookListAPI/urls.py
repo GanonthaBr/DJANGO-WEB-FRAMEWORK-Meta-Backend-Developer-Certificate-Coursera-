@@ -5,6 +5,6 @@ urlpatterns = [
     path('books/',views.booksView),
     # path('books/<int:pk>/',views.SingleBookView.as_view()),
     path('books/<int:pk>/',views.single_book),
-    path('authors/',views.Authors.as_view()),
+    path('authors/',views.author_list, name='authros'),
     path('authors/<int:pk>',views.author_detail, name='author-detail'),
 ]

@@ -40,9 +40,17 @@ def single_book(request, pk):
     serialized_item = AuthorSerializer(item)
     return Response(serialized_item.data)
 
-class Authors(generics.ListCreateAPIView):
-    queryset = Author.objects.all()
-    serializer_class = AuthorSerializer
+@api_view(['GET'])
+def author_list(request):
+    if request.method == 'GET':
+        items = Author.objects.all()
+        name = request.query_params.get('name')
+        if name:
+            items = items.filter(name__startswith=name)
+        serialized_items= AuthorSerializer(items, many=True)
+        return Response(serialized_items.data, status=status.HTTP_200_OK)
+    
+        
 
 @api_view(['GET','POST','PUT','PATCH','DELETE'])
 def author_detail(request, pk):
@@ -55,4 +63,20 @@ def author_detail(request, pk):
         serialized_item.is_valid(raise_exception=True)
         serialized_item.save()
         return Response(serialized_item.data, status=status.HTTP_201_CREATED)
+    if request.method == 'PUT':
+        item = get_object_or_404(Author,pk=pk)
+        serialized_item = AuthorSerializer(item,data=request.data,context={'request':request})
+        serialized_item.is_valid(raise_exception=True)
+        serialized_item.save()
+        return Response(serialized_item.data, status=status.HTTP_200_OK)
+    if request.method == 'PATCH':
+        item = get_object_or_404(Author,pk=pk)
+        serialized_item = AuthorSerializer(item,data=request.data,context={'request':request}, partial=True)
+        serialized_item.is_valid(raise_exception=True)
+        serialized_item.save()
+        return Response(serialized_item.data, status=status.HTTP_200_OK)
+    if request.method == 'DELETE':
+        item = get_object_or_404(Author,pk=pk)
+        item.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
    
