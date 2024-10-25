@@ -57,6 +57,7 @@ def product_list(request):
         perpage = request.query_params.get('perpage', default=2)
         page = request.query_params.get('page',default=1)
         paginator = Paginator(items, perpage)
+        
         try:
             items = paginator.page(number=page)
         except:
