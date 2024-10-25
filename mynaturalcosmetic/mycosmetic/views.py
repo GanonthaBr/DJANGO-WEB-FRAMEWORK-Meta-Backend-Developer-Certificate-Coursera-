@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from .models import Category, Product
 from .serializers import CategorySerializer, ProductSerializer
+from django.core.paginator import Paginator
 
 # Create your views here.
 
@@ -53,6 +54,13 @@ def product_list(request):
         name = request.query_params.get('name') #filtering
         ordering = request.query_params.get('ordering') #ordering
         search = request.query_params.get('search')
+        perpage = request.query_params.get('perpage', default=2)
+        page = request.query_params.get('page',default=1)
+        paginator = Paginator(items, perpage)
+        try:
+            items = paginator.page(number=page)
+        except:
+            items = []
         if name:
             items = items.filter(category__name__istartswith=name)
         if ordering:
@@ -79,12 +87,14 @@ def product_details(request,id):
         item = Product.objects.get(pk=id)
         item.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+    
     if request.method =='PUT':
         item = Product.objects.get(pk=id)
         serialized_item = ProductSerializer(item, data=request.data)
         serialized_item.is_valid(raise_exception=True)
         serialized_item.save()
         return Response(serialized_item.data, status=status.HTTP_200_OK)
+    
     if request.method =='PATCH':
         item = Product.objects.get(pk=id)
         serialized_item = ProductSerializer(item, data=request.data, partial=True) #partial update
