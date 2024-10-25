@@ -7,7 +7,7 @@ urlpatterns = [
     path('books/',views.books),
     path('menu/',views.menu_items),
     # post menu
-    path('post_menu/',views.post_menu),
+    # path('post_menu/',views.post_menu),
     # get menu
 
 ]

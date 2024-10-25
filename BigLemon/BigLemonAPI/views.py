@@ -3,7 +3,8 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework.views import APIView
 from rest_framework import status
-from .models import Books
+from .models import Books, Menu
+from .serializers import MenuSerializer
 
 # Create your views here.
 @api_view(['GET','POST'])
@@ -12,15 +13,19 @@ def books(request):
     return Response('The book list',status=status.HTTP_200_OK)
 
 # MENU
-@api_view(['GET'])
+@api_view(['GET','POST','DELETE'])
 def menu_items(request):
-    return Response('The menu list',status=status.HTTP_200_OK)
+    if request.method == 'GET':
+        items = Menu.objects.all()
+        serialized_items = MenuSerializer(items, many=True)
+        return Response(serialized_items.data, status=status.HTTP_200_OK)
+    if request.method == 'POST':
+        serialized_items = MenuSerializer(data=request.data)
+        serialized_items.is_valid(raise_exception=True)
+        serialized_items.save()
+        return Response(serialized_items.data, status=status.HTTP_201_CREATED)
 
-@api_view(['POST'])
-def post_menu(request):
-    # add 
-    return Response('The menu item added',status=status.HTTP_201_CREATED)
-    
+
 
 class BookViews(APIView):
     def get(self, request):

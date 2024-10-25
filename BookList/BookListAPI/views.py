@@ -14,6 +14,7 @@ def booksView(request):
         items = Book.objects.all()
         name = request.query_params.get('name')
         price = request.query_params.get('to_price')
+        ordering = request.query_params.get('ordering')
 
         if name:
             items = items.filter(author__name=name)
@@ -21,6 +22,8 @@ def booksView(request):
             items = items.filter(price__lte=price)
         if price and name:
             items = items.filter(author__name=name, price__lte=price)
+        if ordering:
+            items = items.order_by(ordering)
         serialized_items = BookSerializer(items, many=True, context={'request':request})
         return Response(serialized_items.data)
     if request.method == 'POST':
