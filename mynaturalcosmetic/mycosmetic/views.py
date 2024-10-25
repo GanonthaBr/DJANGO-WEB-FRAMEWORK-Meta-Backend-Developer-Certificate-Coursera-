@@ -11,6 +11,7 @@ from .serializers import CategorySerializer, ProductSerializer
 def category_list(request):
     if request.method == 'GET':
         items = Category.objects.all()
+        
         serialized_item = CategorySerializer(items, many=True)
         return Response(serialized_item.data, status=status.HTTP_200_OK)
     if request.method == 'POST':
@@ -49,6 +50,16 @@ def category_details(request,id):
 def product_list(request):
     if request.method == 'GET':
         items = Product.objects.all()
+        name = request.query_params.get('name') #filtering
+        ordering = request.query_params.get('ordering') #ordering
+        search = request.query_params.get('search')
+        if name:
+            items = items.filter(category__name__istartswith=name)
+        if ordering:
+            ordering_fields = ordering.split(",")
+            items = items.order_by(*ordering_fields)
+        if search:
+            items = items.filter(name__icontains=search)  
         serialized_item = ProductSerializer(items, many=True)
         return Response(serialized_item.data, status=status.HTTP_200_OK)
     if request.method =='POST':
