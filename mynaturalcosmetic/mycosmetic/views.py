@@ -1,18 +1,19 @@
 from django.shortcuts import render
 from rest_framework import status
 from rest_framework.response import Response
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view,permission_classes
 from .models import Category, Product
 from .serializers import CategorySerializer, ProductSerializer
 from django.core.paginator import Paginator
+from rest_framework.permissions import IsAuthenticated
 
 # Create your views here.
 
 @api_view(['GET','POST'])
+@permission_classes([IsAuthenticated])
 def category_list(request):
     if request.method == 'GET':
         items = Category.objects.all()
-        
         serialized_item = CategorySerializer(items, many=True)
         return Response(serialized_item.data, status=status.HTTP_200_OK)
     if request.method == 'POST':
@@ -57,7 +58,7 @@ def product_list(request):
         perpage = request.query_params.get('perpage', default=2)
         page = request.query_params.get('page',default=1)
         paginator = Paginator(items, perpage)
-        
+
         try:
             items = paginator.page(number=page)
         except:
@@ -77,7 +78,7 @@ def product_list(request):
         serialized_item.save()
         return Response(serialized_item.data, status=status.HTTP_201_CREATED)
 
-@api_view(['GET','DELETE','PUT'])
+@api_view(['GET','DELETE','PUT','PATCH'])
 def product_details(request,id):
     if request.method =='GET':
         item = Product.objects.get(pk=id)
