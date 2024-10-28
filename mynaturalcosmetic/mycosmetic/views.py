@@ -23,11 +23,15 @@ def category_list(request):
         return Response(serialized_item.data,status=status.HTTP_201_CREATED)
 
 @api_view(['GET','DELETE','PUT'])
+@permission_classes([IsAuthenticated])
 def category_details(request,id):
-    if request.method == 'GET':
-        item = Category.objects.get(pk=id)
-        serialized_item = CategorySerializer(item)
-        return Response(serialized_item.data, status=status.HTTP_200_OK)
+    if request.user.groups.filter(name='Manager').exists():
+        if request.method == 'GET':
+            item = Category.objects.get(pk=id)
+            serialized_item = CategorySerializer(item)
+            return Response(serialized_item.data, status=status.HTTP_200_OK)
+    else:
+        return Response({'error':'You are not authorized to perform this action'},status=status.HTTP_403_FORBIDDEN)
    
     if request.method == 'DELETE':
         item = Category.objects.get(pk=id)
