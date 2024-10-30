@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
+from datetime import timedelta
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -40,6 +41,9 @@ INSTALLED_APPS = [
     'mycosmetic',
     'rest_framework',
     'rest_framework.authtoken',
+    'djoser',
+    'rest_framework_simplejwt',
+    'rest_framework_simplejwt.token_blacklist',
 ]
 
 MIDDLEWARE = [
@@ -132,10 +136,19 @@ REST_FRAMEWORK = {
     ],
         'DEFAULT_AUTHENTICATION_CLASSES':(
             'rest_framework.authentication.TokenAuthentication',
+            'rest_framework_simplejwt.authentication.JWTAuthentication',
+
         ),
         'DEFAULT_THROTTLE_RATES':{
-            'anon':'20/day', #anonymous users
-            'user':'4/day', #authenticated users
+            'anon':'200/day', #anonymous users
+            'user':'100/day', #authenticated users
         }
       
+}
+
+DJOSER = {
+    'USER_ID_FIELD':'username',
+}
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=1),
 }
