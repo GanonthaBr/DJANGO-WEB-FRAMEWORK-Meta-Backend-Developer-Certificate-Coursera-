@@ -1,16 +1,17 @@
 from django.shortcuts import render
 from rest_framework import status
 from rest_framework.response import Response
-from rest_framework.decorators import api_view,permission_classes
+from rest_framework.decorators import api_view,permission_classes, throttle_classes
 from .models import Category, Product
 from .serializers import CategorySerializer, ProductSerializer
 from django.core.paginator import Paginator
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.throttling import AnonRateThrottle, UserRateThrottle
 
 # Create your views here.
-
 @api_view(['GET','POST'])
 @permission_classes([IsAuthenticated])
+@throttle_classes([UserRateThrottle])  #user rate throttling
 def category_list(request):
     if request.method == 'GET':
         items = Category.objects.all()
@@ -53,6 +54,7 @@ def category_details(request,id):
         return Response(serialized_item.data,status=status.HTTP_200_OK)
 
 @api_view(['GET','POST'])
+@throttle_classes([AnonRateThrottle])
 def product_list(request):
     if request.method == 'GET':
         items = Product.objects.all()

@@ -7,11 +7,12 @@ class CategorySerializer(serializers.ModelSerializer):
         fields = ['id','name']
 
 class ProductSerializer(serializers.ModelSerializer):
-    category = serializers.PrimaryKeyRelatedField(queryset=Category.objects.all())
+    category_id = serializers.IntegerField()
+    # category = serializers.PrimaryKeyRelatedField(queryset=Category.objects.all())
+    category = CategorySerializer()
     class Meta:
         model = Product
-        fields = ['id','name', 'price','category','description']
-        
+        fields = ['id','name','category_id', 'price','category','description']
         extra_kwargs = {
             'price': {'min_value': 2}
         }
