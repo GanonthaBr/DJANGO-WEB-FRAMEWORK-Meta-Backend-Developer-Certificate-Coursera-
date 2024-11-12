@@ -1,0 +1,8 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+<p>Our menu</p>
+
+{% for item in menu %}
+<p>{{item.name}}</p>
+<p>{{item.price}}</p>
+<a href="{% url 'menu_details' pk=item.pk  %}">view more...</a>
+{% endfor %} {% endblock content %}

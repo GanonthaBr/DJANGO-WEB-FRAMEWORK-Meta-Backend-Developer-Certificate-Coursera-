@@ -1,0 +1,21 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+<div class="book">
+  <div>
+    <p>List of Bookings</p>
+
+    {% for item in booking %}
+    <ul>
+      <h3>{{forloop.counter}}</h3>
+      <li>Number of seats: {{item.number_of_seats}}</li>
+      <p>The table owner: {{item.table_owner}}</p>
+    </ul>
+    {% endfor %}
+  </div>
+  <p>Book here</p>
+
+  <form action="" method="post">
+    {% csrf_token %} {{form.as_p}}
+    <input type="submit" />
+  </form>
+</div>
+{% endblock content %}

@@ -1,0 +1,7 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+<div class="book">
+  <p>{{menu_item.name}}</p>
+  <p>{{menu_item.description}}</p>
+  <p><b> {{menu_item.price}} </b></p>
+</div>
+{% endblock content %}

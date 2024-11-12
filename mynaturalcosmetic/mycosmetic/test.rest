@@ -1,0 +1,22 @@
+GET http://127.0.0.1:8000/api/product
+
+###
+POST http://127.0.0.1:8000/api/api-token-auth/
+Content-Type: application/json
+
+{
+    "username": "Jane",
+    "password": "12345678qw"
+}
+
+###
+#with token
+GET http://127.0.0.1:8000/api/category/1
+Content-Type: application/json
+Authorization: Token 03aea39e97f0de7bf0518f504321e6950a1d7f08
+
+
+
+
+
+
