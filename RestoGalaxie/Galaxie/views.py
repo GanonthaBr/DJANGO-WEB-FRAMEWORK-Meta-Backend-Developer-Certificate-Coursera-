@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from .models import *
 from .form import *
+from django.contrib.auth.decorators import permission_required
 
 # Create your views here.
 
@@ -21,10 +22,10 @@ def menu_details(request,pk):
 
 def book(request):
     form = BookingForm
-    # if request.method == 'GET':
-    #     booking_list = Booking.objects.all()
-    #     data = {"booking":booking_list}
-    #     return render(request,'booking.html',data)
+    if request.method == 'GET':
+        booking_list = Booking.objects.all()
+        data = {"booking":booking_list}
+        return render(request,'booking.html',data)
     if request.method == 'POST':
         form = BookingForm(request.POST)
         if form.is_valid():
