@@ -18,7 +18,6 @@ def room_details(request, room_id):
     return render(request, 'hotel/room_details.html', {'room': room})
 
 #Registration view
-
 def register(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
@@ -32,7 +31,6 @@ def register(request):
 
 
 #Booking view
-
 @login_required
 def book_room(request):
     if request.method == 'POST':

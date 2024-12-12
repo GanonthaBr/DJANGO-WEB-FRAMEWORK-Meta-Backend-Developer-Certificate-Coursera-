@@ -24,17 +24,14 @@ SECRET_KEY = 'django-insecure-1&q4ll=3j23fme=p(h@%gp*nbno$gg1ox5e7mfum9%!g_ws*4b
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
 ALLOWED_HOSTS = []
 
 #Auth
-
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'room_list'
 LOGOUT_REDIRECT_URL = 'login'
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',

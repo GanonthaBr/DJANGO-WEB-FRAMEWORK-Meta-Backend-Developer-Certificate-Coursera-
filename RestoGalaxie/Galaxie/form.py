@@ -5,7 +5,7 @@ class BookingForm(ModelForm):
     class Meta:
         model = Booking
         fields = '__all__'
-
+        
 class CategoryForm(ModelForm):
     class Meta:
         model = Category
